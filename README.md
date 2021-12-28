@@ -10,6 +10,29 @@
 </p>
 <!-- markdownlint-enable MD033 -->
 
+
+# Pi-hole+SSH
+A fork of the excellent project https://github.com/juampe/docker-pi-hole-dot which adds support for SSH.
+This is for running PiHole on a MikroTik RB5009 router. It is far easier to have SSH support for troubleshooting and tweaking in this kind of hosting environment.
+
+MikroTik [container example](https://help.mikrotik.com/docs/display/ROS/Container)
+
+MikroTik setup
+```
+/container mounts
+add dst=/etc/pihole name=pihole src=disk1/pihole
+add dst=/etc/dnsmasq.d name=dnsmasq.d src=disk1/dnsmasqd
+/container
+add envlist=pihole file=disk1/pihole-sshx.tar interface=veth1 logging=yes mounts=pihole,dnsmasq.d root-dir=disk1/containers/pihole
+/container envs
+add list=pihole name=TZ value=Pacific/Auckland
+add list=pihole name=ServerIP value=172.17.0.2
+add list=pihole name=WEBPASSWORD value=password1
+add list=pihole name=DOT_UPSTREAM value=1.1.1.1,1.0.0.1
+add list=pihole name=DNS1 value=127.0.0.1#5353
+add list=pihole name=DNS2 value=no
+```
+
 # Pi-hole DoT
 
 ## About
